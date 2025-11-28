@@ -1,0 +1,273 @@
+/* Theme tokens: light background with dark blue accents */
+:root {
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --accent: #0f4c81;
+  --accent-strong: #0a3a64;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: #e2e8f0;
+  --danger: #e11d48;
+}
+
+/* Base reset and page background */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: radial-gradient(circle at 20% 20%, #e8f1fb, #f8fafc 45%), radial-gradient(circle at 80% 0%, #dfeaf8, #f8fafc 50%), #f8fafc;
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* Layout helper: center content and limit width */
+.container {
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+}
+
+/* Header bar styling */
+.site-header {
+  padding: 32px 0 20px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(15, 76, 129, 0.08), rgba(248, 250, 252, 0));
+}
+
+/* Header title */
+.site-header h1 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+}
+
+/* Header link inherits accent */
+.site-header a {
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+
+/* Header subtitle */
+.site-header p {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+/* Row with sorting and add button */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 0 10px;
+}
+
+/* Group label + select */
+.sort {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Muted sort label */
+.sort label {
+  color: var(--muted);
+}
+
+/* Styled select box */
+.sort select {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+/* Buttons (links and form controls) */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  background: var(--panel);
+  transition: border 0.2s ease, transform 0.1s ease;
+}
+
+/* Primary action button */
+.button.primary {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Slight lift on hover */
+.button:hover { border-color: var(--accent); transform: translateY(-1px); }
+
+/* Grid container for book cards */
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+  padding: 10px 0 32px;
+}
+
+/* Card wrapper for a single book */
+.book-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  box-shadow: 0 10px 30px rgba(15, 76, 129, 0.08);
+}
+
+/* Cover frame: uniform aspect ratio for all covers */
+.cover {
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* Cover images fill the frame */
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Placeholder or missing covers stay centered */
+.cover .placeholder,
+.cover img.missing {
+  color: var(--muted);
+  font-size: 14px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Meta section under the cover */
+.book-meta {
+  padding: 14px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 6px;
+}
+
+/* Title style */
+.book-meta h2 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+/* Secondary text styling */
+.book-meta .author { color: var(--muted); margin: 0; }
+.book-meta .date { color: var(--muted); margin: 0; font-size: 13px; }
+.book-meta .rating { margin: 0; font-weight: 600; color: var(--accent); }
+.book-meta .notes { margin: 6px 0 0; color: var(--text); line-height: 1.5; }
+
+/* Actions row pinned to bottom */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Shared styling for edit link and delete button */
+.actions a,
+.actions button {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border 0.2s ease, color 0.2s ease;
+}
+
+/* Keep the delete form inline with the edit link */
+.actions form { margin: 0; display: inline; }
+
+/* Hover feedback for actions */
+.actions a:hover,
+.actions button:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Delete button hint: light red background */
+.actions button { background: rgba(225, 29, 72, 0.08); border-color: rgba(225, 29, 72, 0.35); color: var(--danger); }
+
+/* Empty state text */
+.empty { color: var(--muted); padding: 20px 0 40px; }
+
+/* Footer styling */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 16px 0 28px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Mobile tweaks: stack controls, shrink columns */
+@media (max-width: 640px) {
+  .controls { flex-direction: column; align-items: flex-start; }
+  .books-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+}
+
+/* Form wrapper sizing and spacing */
+.form-wrapper {
+  padding: 24px 0 40px;
+  max-width: 640px;
+}
+
+/* Form heading */
+.form-wrapper h2 {
+  margin: 0 0 18px;
+  font-size: 22px;
+}
+
+/* Form field layout */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+/* Labels for fields */
+.field label {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Inputs and textarea appearance */
+.field input,
+.field textarea {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+/* Allow notes box to grow vertically */
+.field textarea {
+  resize: vertical;
+}

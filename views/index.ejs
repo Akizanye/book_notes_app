@@ -1,0 +1,52 @@
+<%- include('partials/header') %> <!-- header + opening tags -->
+
+<section class="controls">
+  <!-- sorting dropdown drives ?sort= query param -->
+  <form class="sort" method="get" action="/">
+    <label for="sort">Sort by</label>
+    <select name="sort" id="sort" onchange="this.form.submit()">
+      <option value="recent" <%= sort === 'recent' ? 'selected' : '' %>>Most recent</option>
+      <option value="rating" <%= sort === 'rating' ? 'selected' : '' %>>Highest rated</option>
+      <option value="title" <%= sort === 'title' ? 'selected' : '' %>>Title A-Z</option>
+    </select>
+    <noscript><button type="submit">Apply</button></noscript>
+  </form>
+  <a class="button primary" href="/books/new">Add book</a>
+</section>
+
+<section class="books-grid">
+  <!-- loop through all books; show cover, meta, actions -->
+  <% if (books && books.length) { %>
+    <% books.forEach(book => { %>
+      <article class="book-card">
+        <div class="cover">
+          <% if (book.cover_url) { %>
+            <img src="<%= book.cover_url %>" alt="Cover of <%= book.title %>" loading="lazy">
+          <% } else if (book.isbn) { %>
+            <img src="https://covers.openlibrary.org/b/isbn/<%= book.isbn %>-M.jpg" alt="Cover of <%= book.title %>" loading="lazy" onerror="this.classList.add('missing')">
+          <% } else { %>
+            <div class="placeholder">No cover</div>
+          <% } %>
+        </div>
+        <div class="book-meta">
+          <h2><%= book.title %></h2>
+          <% if (book.author) { %><p class="author"><%= book.author %></p><% } %>
+          <% if (book.finished_on) { %><p class="date">Finished: <%= new Date(book.finished_on).toLocaleDateString() %></p><% } %>
+          <% if (book.rating) { %><p class="rating">Rating: <%= book.rating %>/5</p><% } %>
+          <% if (book.notes) { %><p class="notes"><%= book.notes %></p><% } %>
+          <div class="actions">
+            <a href="/books/<%= book.id %>/edit">Edit</a>
+            <form action="/books/<%= book.id %>/delete" method="post">
+              <button type="submit">Delete</button>
+            </form>
+          </div>
+        </div>
+      </article>
+    <% }); %>
+  <% } else { %>
+    <p class="empty">No books yet. Add your first note.</p>
+  <% } %>
+</section>
+
+<%- include('partials/footer') %> <!-- closing tags/footer -->
+
