@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+
+<%# Registration form for new users %>
+<section class="form-wrapper">
+  <h2>Register</h2>
+  <% if (error) { %>
+    <p class="error"><%= error %></p>
+  <% } %>
+  <form action="/register" method="post">
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <div class="actions">
+      <button class="button primary" type="submit">Create account</button>
+      <a class="button" href="/login">Have an account? Login</a>
+    </div>
+  </form>
+</section>
+
+<%- include('partials/footer') %>
